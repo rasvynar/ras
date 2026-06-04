@@ -140,14 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeView, onOpenLo
                   <span>{currentUser.membership}</span>
                 </div>
 
-                {(currentUser.role === 'Super Admin' || currentUser.role === 'Admin') && (
-                  <button
-                    onClick={() => onNavigate('admin')}
-                    className="hidden lg:flex items-center gap-1 text-[8.5px] font-mono font-bold bg-neutral-900 border border-neutral-805 text-zinc-300 px-2 py-1 rounded hover:bg-neutral-800 transition-colors"
-                  >
-                    ADMIN
-                  </button>
-                )}
+
 
                 <button
                   onClick={onLogout}
@@ -208,14 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, activeView, onOpenLo
           >
             Contact
           </button>
-          {currentUser && (currentUser.role === 'Super Admin' || currentUser.role === 'Admin') && (
-            <button
-              onClick={() => { onNavigate('admin'); setMobileMenuOpen(false); }}
-              className="block w-full text-center py-2 bg-neutral-900 border border-neutral-805 rounded font-black mt-2 text-[10px]"
-            >
-              🔐 ADMIN CONSOLE
-            </button>
-          )}
+
           {currentUser ? (
             <button
               onClick={() => { onLogout(); setMobileMenuOpen(false); }}

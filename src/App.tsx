@@ -12,6 +12,7 @@ import AdminPanel from './components/AdminPanel';
 import InvoicePDF from './components/InvoicePDF';
 import PaymentGatewayModal from './components/PaymentGatewayModal';
 import AntiFraudRegister from './components/AntiFraudRegister';
+import AuthGateway from './components/AuthGateway';
 import { ShoppingBag, CreditCard, ChevronRight, Truck, Info, HelpCircle, ShieldAlert, Key, LogIn, Sparkles, X, Plus, Trash } from 'lucide-react';
 
 export const MainApp: React.FC = () => {
@@ -38,6 +39,43 @@ export const MainApp: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  // 1. Listen for back/forward browser navigation (popstate)
+  useEffect(() => {
+    const syncRoute = () => {
+      const path = window.location.pathname;
+      if (path === '/lupalagi') {
+        setActiveView('admin');
+      } else if (path === '/profile') {
+        setActiveView('profile');
+      } else if (path === '/cart') {
+        setActiveView('cart');
+      } else if (path === '/') {
+        setActiveView('home');
+      }
+    };
+
+    window.addEventListener('popstate', syncRoute);
+    syncRoute(); // run on initial mount
+
+    return () => window.removeEventListener('popstate', syncRoute);
+  }, []);
+
+  // 2. Push state to URL when activeView transitions
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (activeView === 'admin' && path !== '/lupalagi') {
+      window.history.pushState(null, '', '/lupalagi');
+    } else if (activeView === 'profile' && path !== '/profile') {
+      window.history.pushState(null, '', '/profile');
+    } else if (activeView === 'cart' && path !== '/cart') {
+      window.history.pushState(null, '', '/cart');
+    } else if (activeView === 'home' && path !== '/') {
+      window.history.pushState(null, '', '/');
+    } else if (!['admin', 'profile', 'cart', 'home'].includes(activeView) && path !== '/') {
+      window.history.pushState(null, '', '/');
+    }
+  }, [activeView]);
 
   // Authentication modals
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -343,6 +381,14 @@ export const MainApp: React.FC = () => {
           });
         }}
       />
+    );
+  }
+
+  if (!currentUser && !splash) {
+    return (
+      <div id="rasvynar-fullstack-spa" className="min-h-screen bg-[#070707] text-white flex flex-col justify-between selection:bg-white selection:text-black">
+        <AuthGateway />
+      </div>
     );
   }
 
