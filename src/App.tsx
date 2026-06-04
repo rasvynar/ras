@@ -12,7 +12,6 @@ import AdminPanel from './components/AdminPanel';
 import InvoicePDF from './components/InvoicePDF';
 import PaymentGatewayModal from './components/PaymentGatewayModal';
 import AntiFraudRegister from './components/AntiFraudRegister';
-import AuthGateway from './components/AuthGateway';
 import { ShoppingBag, CreditCard, ChevronRight, Truck, Info, HelpCircle, ShieldAlert, Key, LogIn, Sparkles, X, Plus, Trash } from 'lucide-react';
 
 export const MainApp: React.FC = () => {
@@ -306,14 +305,14 @@ export const MainApp: React.FC = () => {
   // Complete checkout forms and generate order
   const handleProceedToPayment = () => {
     if (cart.length === 0) return;
-    if (!checkoutName.trim() || !checkoutPhone.trim() || !checkoutEmail.trim()) {
-      alert('Mohon lengkapi formulir penerima barang sebelum melanjutkan pembayaran.');
+
+    if (!currentUser) {
+      setAuthModalOpen(true);
       return;
     }
 
-    if (!currentUser) {
-      alert('Anda wajib login / mendaftar sebagai member RASVYNAR terlebih dahulu demi kenyamanan tracking resi dan anti-fraud.');
-      setAuthModalOpen(true);
+    if (!checkoutName.trim() || !checkoutPhone.trim() || !checkoutEmail.trim()) {
+      alert('Mohon lengkapi formulir penerima barang sebelum melanjutkan pembayaran.');
       return;
     }
 
@@ -381,14 +380,6 @@ export const MainApp: React.FC = () => {
           });
         }}
       />
-    );
-  }
-
-  if (!currentUser && !splash) {
-    return (
-      <div id="rasvynar-fullstack-spa" className="min-h-screen bg-[#070707] text-white flex flex-col justify-between selection:bg-white selection:text-black">
-        <AuthGateway />
-      </div>
     );
   }
 
