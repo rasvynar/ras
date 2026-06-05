@@ -2,9 +2,8 @@
 <a href="https://ibb.co.com/1tGZY8Hb"><img src="https://i.ibb.co.com/PvGxswBt/rasvynar.png" alt="rasvynar" border="0"></a>
 </div>
 
-# Run and deploy your AI Studio app
+# Visit My Website
 
-This contains everything you need to run your app locally.
 
 View my page: https://rasvynar.shop
 
