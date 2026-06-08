@@ -506,7 +506,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         whatsapp: '6281234567890',
         role: 'Super Admin',
         status: 'Active',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+        avatar: 'https://photos.app.goo.gl/h3465ombAasCcQiz6',
         address: 'Grand Indonesia Shopping Town, Jakarta Pusat',
         province: 'DKI Jakarta',
         city: 'Jakarta Pusat',

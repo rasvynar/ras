@@ -153,59 +153,8 @@ export const MainApp: React.FC = () => {
     e.preventDefault();
     setLoginError('');
 
-    // Developer instant login bypass for seamless reviews
     const formattedEmail = loginEmail.toLowerCase().trim();
-    if (formattedEmail === settings.superAdminEmail.toLowerCase()) {
-      const devAdmin = {
-        id: 'usr-admin-initial',
-        name: 'Super Admin RASVYNAR',
-        email: settings.superAdminEmail,
-        whatsapp: settings.whatsappBusiness,
-        role: 'Super Admin' as const,
-        status: 'Active' as const,
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
-        address: settings.businessAddress,
-        province: 'DKI Jakarta',
-        city: 'Jakarta Pusat',
-        district: 'Menteng',
-        postalCode: '10310',
-        latitude: -6.1952,
-        longitude: 106.8231,
-        formattedAddress: settings.businessAddress,
-        placeId: 'ChIJXQ-zW0rJaS4Rh19zVpA2-Yk',
-        membership: 'Platinum' as const,
-        points: 4500,
-        referralCode: 'RSV-ADMIN',
-        referredBy: '',
-        commissionsEarned: 0,
-        ipAddress: '127.0.0.1',
-        country: 'Indonesia',
-        cityFromIp: 'Jakarta',
-        deviceFingerprint: 'BYPASS-LOCAL-DEV',
-        browser: 'Edge/Chrome Kernel',
-        riskScore: 0
-      };
 
-      recordLoginActivity({
-        userName: 'Super Admin',
-        email: settings.superAdminEmail,
-        ipAddress: '127.0.0.1',
-        country: 'Indonesia',
-        city: 'Jakarta',
-        device: 'Workstation Node',
-        browser: 'Developer Console',
-        status: 'SUCCESS',
-        riskScore: 0
-      });
-
-      setCurrentUser(devAdmin);
-      setAuthModalOpen(false);
-      setLoginEmail('');
-      setLoginPassword('');
-      return;
-    }
-
-    // Customer simple fallback mockup
     if (loginPassword.length >= 6 && formattedEmail.includes('@')) {
       const userMock = {
         id: `usr-${Date.now()}`,
